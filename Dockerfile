@@ -36,7 +36,8 @@ RUN apt-get install -y \
         zip \
         pdftk \
         expect \
-        mkisofs
+        mkisofs \
+        libmagickwand-dev
 
 RUN  curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -81,6 +82,9 @@ RUN pecl install xdebug
 
 RUN pecl install memcached
 RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
+
+RUN pecl install imagick
+RUN docker-php-ext-enable imagick
 
 ADD conf.d/php.ini /etc/php/8.1/php.ini
 ADD conf.d/xdebug.ini /etc/php/8.1/xdebug.ini
