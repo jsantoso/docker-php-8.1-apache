@@ -37,6 +37,7 @@ RUN apt-get install -y \
         pdftk \
         expect \
         mkisofs \
+        dcmtk \
         libmagickwand-dev
 
 RUN  curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
