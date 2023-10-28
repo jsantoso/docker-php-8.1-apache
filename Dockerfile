@@ -38,7 +38,9 @@ RUN apt-get install -y \
         expect \
         mkisofs \
         dcmtk \
-        libmagickwand-dev
+        libmagickwand-dev \
+        unixodbc \
+        unixodbc-dev
 
 RUN  curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -51,6 +53,7 @@ ENV XDEBUG_HOST host.docker.internal
 ENV XDEBUG_PORT 9000
 
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
+RUN docker-php-ext-configure pdo_odbc --with-pdo-odbc=unixODBC,/usr
 
 RUN /usr/local/bin/docker-php-ext-install mbstring
 RUN /usr/local/bin/docker-php-ext-install iconv
@@ -58,6 +61,7 @@ RUN /usr/local/bin/docker-php-ext-install gd
 RUN /usr/local/bin/docker-php-ext-install bz2
 RUN /usr/local/bin/docker-php-ext-install pdo
 RUN /usr/local/bin/docker-php-ext-install pdo_pgsql
+RUN /usr/local/bin/docker-php-ext-install pdo_odbc
 RUN /usr/local/bin/docker-php-ext-install pgsql
 RUN /usr/local/bin/docker-php-ext-install soap
 RUN /usr/local/bin/docker-php-ext-install xml
